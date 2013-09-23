@@ -6,7 +6,7 @@
 
 %\documentclass[a4paper, 10pt, conference]{ieeeconf}      % Use this line for a4 paper
 
-\IEEEoverridecommandlockouts                              % This command is only needed if 
+\IEEEoverridecommandlockouts                              % This command is only needed if
                                                           % you want to use the \thanks command
 
 \overrideIEEEmargins                                      % Needed to meet printer requirements.
@@ -52,7 +52,8 @@ System Engineering Approach to Extending Endurance of Cooperative Gliders
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
 
-The paper describes the multidisciplinary approach to the development of extended endurance of multiple cooperative gliders capable to harvest solar and thermals energy. Starting with a brief review of the components required to enable the extended endurance flight, the paper concentrates on the need for evolution of previously built architecture that already enabled successful utilization of the energy of sun. The discussion justifies the essential components of the single solar-powered thermaling glider and illustrates the key benefits of multiple platforms collaboration.
+In this paper, the multidisciplinary total-system design approach utilized for the development of a fleet of cooperative, long-endurance gliders is described. The flock is able to harvest energy from the environment both through photo-voltaic energy generation and through exploitation of natural convective lift in the environment, and acts cooperatively to meet mission requirements and to share knowledge of the local environment. The paper begins with a brief overview of the total-energy approach required for such a feat, along with a short description of key system components. This is followed by details of the evolution of a previously-developed architecture that supported autonomous thermaling, to an architecture that considers the total energy budget in all flight segments, and optimizes flight trajectories to maximize energy capture while simultaneously meeting mission goals.
+
 
 \end{abstract}
 
@@ -61,6 +62,18 @@ The paper describes the multidisciplinary approach to the development of extende
 \section{INTRODUCTION}
 
 Who is working in the area? What fundamental results were developed and demonstrated in flight? Why the evolution of the previously built architecture is necessary? What are the key building components?
+
+\subsection{Total-Energy System}
+
+Arguably, all aircraft are systems of systems, where all sub-systems interact and affect each other on some level. However, to achieve success in the current project, the inter-dependence of the sub-systems is extreme, such that, in a sense, the over all system design must be solved simultaneously to have any chance of success. The total energy of the system, and the rate of energy capture or dissipation drive the flight trajectory to a large extent. Payload weight turns out to be far less significant than payload power, although both power and weight are interchangeable through induced drag. Glide performance for all feasible flight speeds must be known, and flight controls must utilize this knowledge to optimize glide efficiency for all flight segments.
+
+The energy of the aircraft is governed by the energy equation, increased by energy coming into the system, and decreased by energy leaving the system. There are two methods whereby energy may come into the system: through photovoltaic energy conversion from the sun, and through exploitation of natural convective lift in the environment. Photovoltaic energy production is limited by the size of the array, efficiency of the cells, incident angle of the array to the sun (which couples flight trajectory to solar-power intake), and local solar radiation. Solar radiation is coupled to time of day, geographic location as well as other factors like air quality and altitude. Through a 24 hour period, there is really a small subset of hours where solar radiation is sufficient for any meaningful energy intake. Frequently the energy available from solar radiation is treated as an integration over a 24-hour period. For example, in Monterey California, in June of an average year, a little over 7 $kWh/m^2$ is expected for an array that is flat (not tilted toward the incident radiation).
+
+The second form of energy intake, natural convective lift, is somewhat more difficult to characterize, but was the focus of several previous papers by the present authors and others. In previous developments, a flight control algorithm was developed and tested that allowed multiple, cooperative gliders to locate and utilize thermals for lift in order to stay aloft for extended periods with no propulsion requirement. This process involves a search routine to locate potential thermals, where the cooperation plays a key role, and a thermal-centering algorithm to make sure the glider stays in the thermal as it climbs and as the thermal convects with local winds. While others have performed autonomous thermaling (cite refs), it is believed that the present authors (with Klas Andersson) were the first to do it cooperatively. The cooperation reduces the time needed to locate a potential thermal, and time is energy, as the aircraft is bleeding energy in the form aerodynamic drag and loss of elevation as it glides.
+
+The loss of energy from the system can come in many forms. As mentioned above, during all flight segments aerodynamic drag removes energy from the system, both through viscous and induced drag. Induced drag couples the weight of the system to energy loss. The aircraft may use an optional motor for propulsion, exchanging stored energy for kinetic and/or potential energy, but at a loss due to motor, gear, propeller, and electrical inefficiencies. Additional energy loss may arise from sink, the opposite of convective lift, where the glider flies through a pocket of air that is moving downward. Detection and avoidance of these regions is key. The other primary energy loss is electrical power required for avionics and payload systems. Consideration of a baseline electrical energy requirement along with un-aided glide performance dictates a minimum energy storage requirement to \emph{survive the night}. However, energy storage can typically take two forms, onboard energy storage in the form of batteries, or potential energy in the form of elevation above ground. Early attempts at perpetual solar-powered flight utilized no batteries at all, with only potential energy for storage (cite Sunrise).
+
+More details about these subsystems are given in the following sections that involve selection of the airframe, solar cells, propulsion and energy storage components.
 
 \section{System Level Architecture}
 A diagram of the proposed architecture goes here. Discussion of why the components are necessary should be provided.
@@ -87,7 +100,7 @@ Our plans for the November-February time frame.
 
 \section{CONCLUSIONS}
 
-A conclusion  might elaborate on the importance of the work or suggest applications and extensions. 
+A conclusion  might elaborate on the importance of the work or suggest applications and extensions.
 
 \addtolength{\textheight}{-12cm}   % This command serves to balance the column lengths
                                   % on the last page of the document manually. It shortens
@@ -140,9 +153,9 @@ References are important to the reader; therefore, each citation must be complet
 \bibitem{c15} W. D. Doyle, ÒMagnetization reversal in films with biaxial anisotropy,Ó in 1987 Proc. INTERMAG Conf., pp. 2.2-1Ð2.2-6.
 \bibitem{c16} G. W. Juette and L. E. Zeffanella, ÒRadio noise currents n short sections on bundle conductors (Presented Conference Paper style),Ó presented at the IEEE Summer power Meeting, Dallas, TX, June 22Ð27, 1990, Paper 90 SM 690-0 PWRS.
 \bibitem{c17} J. G. Kreifeldt, ÒAn analysis of surface-detected EMG as an amplitude-modulated noise,Ó presented at the 1989 Int. Conf. Medicine and Biological Engineering, Chicago, IL.
-\bibitem{c18} J. Williams, ÒNarrow-band analyzer (Thesis or Dissertation style),Ó Ph.D. dissertation, Dept. Elect. Eng., Harvard Univ., Cambridge, MA, 1993. 
+\bibitem{c18} J. Williams, ÒNarrow-band analyzer (Thesis or Dissertation style),Ó Ph.D. dissertation, Dept. Elect. Eng., Harvard Univ., Cambridge, MA, 1993.
 \bibitem{c19} N. Kawasaki, ÒParametric study of thermal and chemical nonequilibrium nozzle flow,Ó M.S. thesis, Dept. Electron. Eng., Osaka Univ., Osaka, Japan, 1993.
-\bibitem{c20} J. P. Wilkinson, ÒNonlinear resonant circuit devices (Patent style),Ó U.S. Patent 3 624 12, July 16, 1990. 
+\bibitem{c20} J. P. Wilkinson, ÒNonlinear resonant circuit devices (Patent style),Ó U.S. Patent 3 624 12, July 16, 1990.
 
 
 
