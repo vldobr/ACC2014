@@ -77,7 +77,64 @@ A diagram of the proposed architecture goes here. Discussion of why the componen
 
 \subsection{Electric Energy Management Subsystem}
 
-Kevin describes the architecture here: diagram, hardware components, wiring e.t.c. Choice of solar cells. Choice of batteries. Experimental setups to verify the energy density claims. Discussion of the experimental results. It's impact on the future control strategies to sustain overnight flight
+As mentioned in the introduction, there are two sources of energy input into the system: photovoltaic and atmospheric convection, and typically two methods of energy storage; potential energy stored chemically in batteries and potential energy stored via altitude. This section describes the electrical half of that system; electrical input through photovoltaic conversion and energy storage in rechargeable batteries.
+
+Earlier it was mentioned that solar radiation could be given empirically for a given location and time of year. This provides an estimate of what energy-density might be available from solar radiation. Knowing an array size, cell efficiency, and with estimates of air clarity, an estimate for available energy input from the array over a 24-hour period may be predicted. The current model is outfitted with research-grade mono-crystalline Silicon cells with an advertised efficiency of 22.5 percent. The cells are semi-rigid - they don't qualify as flexible, but they can very carefully be bent to conform to the airfoil surface over the majority of the wing. Ideally, as much of the aircraft surface as possible should be covered by the array, but it must be done in such a way that it does not disturb the boundary layer. While the system may gain energy through the array, it won't help if we lose that same energy through increased viscous drag or loss of lift. Therefore, the cells are built into the wing surface during initial composite lay-up of the wing, such that they are essentially conformal, with only subtle fine-texture differences. A small section of wing with embedded cells is shown in Fig.~\ref{wing_sample}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=85mm]{Figures/IMG_3502.eps}
+  \caption{Sample wing section with conformal, embedded cells.}
+  \label{wing_sample}
+\end{figure}
+
+In the current generation of the aircraft, a small solar array has been included in order to identify aerodynamic and structural issues that might arise. For example, the solar cells get quite hot while the aircraft is at rest on the ground. Will this heat be sufficient to damage the wing structure by softening the epoxy resin used in the composites, or delaminate the protective film around the cells? When the wing flexes in flight, will this damage the semi-rigid cells or break them loose from the wing? The current array includes 18 cells for an array area of 0.28 m$^2$. With the estimates for efficiency, this should provide on the order of 440 Wh in a 24-hour period in June, or roughly 50 W at mid day.
+
+Photovoltaic cells operate with variable output voltage and current which is dependent on the available radiation and the load impedance. In order to maximize power output, circuitry is required to actively adjust the load impedance to drive the product of voltage and current (power) to a peak. This device is called a Maximum Peak Power Tracker, or MPPT. The MPPT circuit uses switching circuitry which is typically combined with a buck or boost converter to yield a regulated DC voltage output. There is an efficiency associated with the MPPT, but it is typically quite high, typically better than 99 percent.
+
+The power coming from the MPPT is split and is fed into a charge controller for the batteries and to the load (avionics, propulsion, payload). If the power coming from the MPPT is greater than the load, it is used to charge the batteries, storing potential energy for later use. If the load is greater than the power coming from the MPPT then it taps into the batteries, depleting stored potential energy.
+
+Battery selection is the next challenge. Typically Lithium-chemistry batteries have the highest \emph{energy-density} for commercially available rechargeable batteries, but there is an enormous variation from type to type. Most suitable cell technologies fall into two categories, the \emph{can}-type cells usually found in laptops, and the foil-wrapped flat cells typically found in cell phones and other compact electronics. The can-type cells are usually referred to as Lithium-Ion or LiIon batteries, and the most common form-factor is the 18650 cell, which is nominally 18 mm in diameter and 65 mm long. These cells typically cannot support high discharge rates. Most are caped at a 1C continuous discharge rate, where the 1C rating means that the cell would be depleted in one hour. This equates to a low \emph{power-density}. This limitation will likely not be a concern, as the batteries are intended to be used through the night, with average discharge rates of less than 0.1C. Depending on the pack size, this is a potential limitation when the motor is used, as it is a short-term, but very load.
+
+The flat foil-wrapped battery type is usually referred to as Lithium polymer or LiPo. These are commonly used in cell phones and other compact devices as well as the radio control aircraft hobby. Unlike the LiIon cells, the power-density of LiPo cells can be extremely high. Many in the hobby industry claim continuous discharge rates of 70C with bursts of 140C. This equates to draining the battery in less than one minute. Unfortunately, there is an inverse relationship between energy-density and power-density in these cells. In order to achieve the high discharge rates, the cells need more copper to carry the current, and the cells must be larger and heavier.
+
+Looking at manufacturer specification for the LiIon cells, energy densities in excess of 200 Wh/kg are frequently listed, whereas for the lower discharge-rate LiPos the highest is on the order of 190 wh/kg. Samples of both cell types were tested. The LiIon cells had an advertised capacity of 3 Ah, and an energy density on the order of 220 wh/kg. The LiPo cells had an advertised capacity of 2 Ah, and an energy density of just over 190 wh/kg. Experiments were set up to test the cells under typical loads. Twelve LiIon cells were formed into a pack of 4 cells in series (4S) and 3 cells in parallel (3P), to make a 4S3P pack with a nominal voltage of 14.8 V and capacity of 9 Ah. Sixteen LiPo cells were formed into a 4S4P pack with nominal 14.8 V and 8 Ahr capacity.
+
+Due to internal cell resistance, the usable energy in the packs is a function of discharge rate. The LiPo pack was tested at two discharge rates, 0.21C and 2.51C, with voltage and current logged from start to finish. The LiIon pack cannot support the higher discharge rate, but was tested at a lower 0.17C rate. Results of the discharge tests are shown in Figs.~\ref{batt_v_vs_t} and \ref{batt_e_vs_t}, plotting voltage and energy-use as functions of normalized discharge time, respectively. As with most batteries, voltage slowly drops over the discharge cycle, a feature that is convenient for estimating remaining energy in the pack. The voltage also drops as a function of load, which is a result of the internal cell resistance and Ohm's law.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=85mm]{Figures/V_versus_T.eps}
+  \caption{Pack voltage as a function of normalized discharge time.}
+  \label{batt_v_vs_t}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=85mm]{Figures/Energy_v_time.eps}
+  \caption{Energy-out as a function of normalized discharge time.}
+  \label{batt_e_vs_t}
+\end{figure}
+
+The discharge cycles were halted when the pack voltage reached 3.2 V/cell or 12.8 V for the pack. For the LiPo pack this is considered to be the lowest, safe voltage for the cells, The LiIon packs can typically be safely drained to a lower voltage, although is is apparent from Fig.~\ref{batt_v_vs_t} that the voltage has already dropped off the cliff, and there is very little actual energy left in the pack. The measured useful pack energy and energy-density are shown in Table~\ref{batt_performance}.
+\begin{table}
+  \caption{Measured battery performance}
+  \centering
+  \begin{tabular}{ l | r | r | r }
+  Type &C-rate & Energy (Wh) & Energy Density (Wh/kg) \\
+  \hline
+  LiPo & 0.209 & 115.5 & 177.7 \\
+  LiPo & 2.502 & 105.8 & 162.8 \\
+  LiIon & 0.171 & 107.9 & 167.3 \\
+  \end{tabular}
+  \label{batt_performance}
+\end{table}
+
+The sensitivity to drain rate is clear. Also clear is the fact that advertised energy and energy-density might not be achievable in a practical application. While the LiIon cells would appear to be far superior based on manufacturers' specifications, experiments would tend to suggest that LiPo batteries are superior for this project.
+
+Battery capacity is driven by the need to survive the night with no photovoltaic energy input. At a minimum the battery must power the avionics and payload components that are in use. Thermal activity will diminish at night, although the same algorithm that exploits thermal lift during the day may be used to minimize sink during the night. If there are pockets of air that sink, there must be pockets of air that rise. The lift may be weak, but better than no lift at all. When the lift is insufficient to maintain altitude, the motor must be used to regain it.
+
+Use of the motor for propulsion introduces additional efficiency considerations. The motor is a sensorless brushless motor with electronic speed control. Motor efficiencies are quite high at nominal power settings. All brushless motors have internal resistance and a parameter called $I_0$ that represents the no-load current at a specific voltage. These two terms dictate the efficiency of the motor over its useful power spectrum. With no load they will draw power from the system that is roughly $I_0*V$ and at an efficiency of zero. As the mechanical load is increased, the efficiency rapidly increases to some peak value. While the motor might have a nominal efficiency of better than 90 percent at its rated power, at a much lower power the efficiency can be very low, perhaps below 50 percent. This becomes critical when the motor is used for propulsion. The current airframe at nominal weight requires on the order of 40 $W$ to sustain cruise flight, but the motor is rated for up to 1000 $W$. At full throttle with the included gear drive and propeller it draws on the order of 400 $W$ with an estimated total efficiency in excess of 85 percent, but at 40 $W$ the system efficiency is down around 10 percent. This is a clear indication that when the motor is used, it should be used at a high power setting, not to sustain cruise flight, but to gain altitude, using elevation as energy storage. The intermittent high power draw from the propulsion will reduce the battery efficiency somewhat, but this is much more subtle than the motor efficiency curve.
 
 \subsection{Potential Energy Management}
 
