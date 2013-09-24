@@ -1,0 +1,227 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%2345678901234567890123456789012345678901234567890123456789012345678901234567890
+%        1         2         3         4         5         6         7         8
+
+\documentclass[letterpaper, 10 pt, conference]{ieeeconf}  % Comment this line out if you need a4paper
+
+%\documentclass[a4paper, 10pt, conference]{ieeeconf}      % Use this line for a4 paper
+
+\IEEEoverridecommandlockouts                              % This command is only needed if
+                                                          % you want to use the \thanks command
+
+\overrideIEEEmargins                                      % Needed to meet printer requirements.
+
+% See the \addtolength command later in the file to balance the column lengths
+% on the last page of the document
+
+% The following packages can be found on http:\\www.ctan.org
+\usepackage{graphics} % for pdf, bitmapped graphics files
+\usepackage{epsfig} % for postscript graphics files
+%\usepackage{mathptmx} % assumes new font selection scheme installed
+%\usepackage{times} % assumes new font selection scheme installed
+%\usepackage{amsmath} % assumes amsmath package installed
+%\usepackage{amssymb}  % assumes amsmath package installed
+
+\title{\LARGE \bf
+System Engineering Approach to Extending Endurance of Cooperative Gliders
+}
+
+
+\author{Nahum Camacho$1^{1}$, Vladimir Dobrokhodov$^{2}$, Kevin Jones$^{3}$, and Isaac Kaminer$^{4}$% <-this % stops a space
+\thanks{$^{1}$N. Camacho is a graduate student at the Department  of Mechanical and Aerospace Engineering,
+        Naval Postgraduate School, Monterey, CA, 93943
+        {\tt\small kaminer@nps.edu}}%
+\thanks{$^{2}$V.N. Dobrokhodov and $^{3}$K.D. Jones are Research Associate Professors at the Department  of Mechanical and Aerospace Engineering,
+        Naval Postgraduate School, Monterey, CA, 93943
+        {\tt\small {vldobr, kdjones@nps.edu}}}%
+\thanks{$^{4}$I.I. Kaminer is a Professor at the Department  of Mechanical and Aerospace Engineering,
+        Naval Postgraduate School, Monterey, CA, 93943
+        {\tt\small kaminer@nps.edu}}%
+}
+
+
+\begin{document}
+
+
+
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+
+In this paper, the multidisciplinary total-system design approach utilized for the development of a fleet of cooperative, long-endurance gliders is described. The flock is able to harvest energy from the environment both through photo-voltaic energy generation and through exploitation of natural convective lift in the environment, and acts cooperatively to meet mission requirements and to share knowledge of the local environment. The paper begins with a brief overview of the total-energy approach required for such a feat, along with a short description of key system components. This is followed by details of the evolution of a previously-developed architecture that supported autonomous thermaling, to an architecture that considers the total energy budget in all flight segments, and optimizes flight trajectories to maximize energy capture while simultaneously meeting mission goals.
+
+
+\end{abstract}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{INTRODUCTION}
+
+Who is working in the area? What fundamental results were developed and demonstrated in flight? Why the evolution of the previously built architecture is necessary? What are the key building components?
+
+\subsection{Total-Energy System}
+
+Arguably, all aircraft are systems of systems, where all sub-systems interact and affect each other on some level. However, to achieve success in the current project, the inter-dependence of the sub-systems is extreme, such that, in a sense, the over all system design must be solved simultaneously to have any chance of success. The total energy of the system, and the rate of energy capture or dissipation drive the flight trajectory to a large extent. Payload weight turns out to be far less significant than payload power, although both power and weight are interchangeable through induced drag. Glide performance for all feasible flight speeds must be known, and flight controls must utilize this knowledge to optimize glide efficiency for all flight segments.
+
+The energy of the aircraft is governed by the energy equation, increased by energy coming into the system, and decreased by energy leaving the system. There are two methods whereby energy may come into the system: through photovoltaic energy conversion from the sun, and through exploitation of natural convective lift in the environment. Photovoltaic energy production is limited by the size of the array, efficiency of the cells, incident angle of the array to the sun (which couples flight trajectory to solar-power intake), and local solar radiation. Solar radiation is coupled to time of day, geographic location as well as other factors like air quality and altitude. Through a 24 hour period, there is really a small subset of hours where solar radiation is sufficient for any meaningful energy intake. Frequently the energy available from solar radiation is treated as an integration over a 24-hour period. For example, in Monterey California, in June of an average year, a little over 7 kWh/m$^2$ is expected for an array that is flat (not tilted toward the incident radiation).
+
+The second form of energy intake, natural convective lift, is somewhat more difficult to characterize, but was the focus of several previous papers by the present authors and others. In previous developments, a flight control algorithm was developed and tested that allowed multiple, cooperative gliders to locate and utilize thermals for lift in order to stay aloft for extended periods with no propulsion requirement. This process involves a search routine to locate potential thermals, where the cooperation plays a key role, and a thermal-centering algorithm to make sure the glider stays in the thermal as it climbs and as the thermal convects with local winds. While others have performed autonomous thermaling (cite refs), it is believed that the present authors (with Klas Andersson) were the first to do it cooperatively. The cooperation reduces the time needed to locate a potential thermal, and time is energy, as the aircraft is bleeding energy in the form aerodynamic drag and loss of elevation as it glides.
+
+The loss of energy from the system can come in many forms. As mentioned above, during all flight segments aerodynamic drag removes energy from the system, both through viscous and induced drag. Induced drag couples the weight of the system to energy loss. The aircraft may use an optional motor for propulsion, exchanging stored energy for kinetic and/or potential energy, but at a loss due to motor, gear, propeller, and electrical inefficiencies. Additional energy loss may arise from sink, the opposite of convective lift, where the glider flies through a pocket of air that is moving downward. Detection and avoidance of these regions is key. The other primary energy loss is electrical power required for avionics and payload systems. Consideration of a baseline electrical energy requirement along with un-aided glide performance dictates a minimum energy storage requirement to \emph{survive the night}. However, energy storage can typically take two forms, onboard energy storage in the form of batteries, or potential energy in the form of elevation above ground. Early attempts at perpetual solar-powered flight utilized no batteries at all, with only potential energy for storage (cite Sunrise).
+
+More details about these subsystems are given in the following sections that involve selection of the airframe, solar cells, propulsion and energy storage components.
+
+\section{System Level Architecture}
+A diagram of the proposed architecture goes here. Discussion of why the components are necessary should be provided.
+
+\subsection{Electric Energy Management Subsystem}
+
+As mentioned in the introduction, there are two sources of energy input into the system: photovoltaic and atmospheric convection, and typically two methods of energy storage; potential energy stored chemically in batteries and potential energy stored via altitude. This section describes the electrical half of that system; electrical input through photovoltaic conversion and energy storage in rechargeable batteries.
+
+Earlier it was mentioned that solar radiation could be given empirically for a given location and time of year. This provides an estimate of what energy-density might be available from solar radiation. Knowing an array size, cell efficiency, and with estimates of air clarity, an estimate for available energy input from the array over a 24-hour period may be predicted. The current model is outfitted with research-grade mono-crystalline Silicon cells with an advertised efficiency of 22.5 percent. The cells are semi-rigid - they don't qualify as flexible, but they can very carefully be bent to conform to the airfoil surface over the majority of the wing. Ideally, as much of the aircraft surface as possible should be covered by the array, but it must be done in such a way that it does not disturb the boundary layer. While the system may gain energy through the array, it won't help if we lose that same energy through increased viscous drag or loss of lift. Therefore, the cells are built into the wing surface during initial composite lay-up of the wing, such that they are essentially conformal, with only subtle fine-texture differences. A small section of wing with embedded cells is shown in Fig.~\ref{wing_sample}. 
+
+\begin{figure}
+  \centering
+  \includegraphics[width=85mm]{Figs/IMG_3502.eps}
+  \caption{Sample wing section with conformal, embedded cells.}
+  \label{wing_sample}
+\end{figure}
+
+In the current generation of the aircraft, a small solar array has been included in order to identify aerodynamic and structural issues that might arise. For example, the solar cells get quite hot while the aircraft is at rest on the ground. Will this heat be sufficient to damage the wing structure by softening the epoxy resin used in the composites, or delaminate the protective film around the cells? When the wing flexes in flight, will this damage the semi-rigid cells or break them loose from the wing? The current array includes 18 cells for an array area of 0.28 m$^2$. With the estimates for efficiency, this should provide on the order of 440 Wh in a 24-hour period in June, or roughly 50 W at mid day.
+
+Photovoltaic cells operate with variable output voltage and current which is dependent on the available radiation and the load impedance. In order to maximize power output, circuitry is required to actively adjust the load impedance to drive the product of voltage and current (power) to a peak. This device is called a Maximum Peak Power Tracker, or MPPT. The MPPT circuit uses switching circuitry which is typically combined with a buck or boost converter to yield a regulated DC voltage output. There is an efficiency associated with the MPPT, but it is typically quite high, typically better than 99 percent.
+
+The power coming from the MPPT is split and is fed into a charge controller for the batteries and to the load (avionics, propulsion, payload). If the power coming from the MPPT is greater than the load, it is used to charge the batteries, storing potential energy for later use. If the load is greater than the power coming from the MPPT then it taps into the batteries, depleting stored potential energy.
+
+Battery selection is the next challenge. Typically Lithium-chemistry batteries have the highest \emph{energy-density} for commercially available rechargeable batteries, but there is an enormous variation from type to type. Most suitable cell technologies fall into two categories, the \emph{can}-type cells usually found in laptops, and the foil-wrapped flat cells typically found in cell phones and other compact electronics. The can-type cells are usually referred to as Lithium-Ion or LiIon batteries, and the most common form-factor is the 18650 cell, which is nominally 18 mm in diameter and 65 mm long. These cells typically cannot support high discharge rates. Most are caped at a 1C continuous discharge rate, where the 1C rating means that the cell would be depleted in one hour. This equates to a low \emph{power-density}. This limitation will likely not be a concern, as the batteries are intended to be used through the night, with average discharge rates of less than 0.1C. Depending on the pack size, this is a potential limitation when the motor is used, as it is a short-term, but very load.
+
+The flat foil-wrapped battery type is usually referred to as Lithium polymer or LiPo. These are commonly used in cell phones and other compact devices as well as the radio control aircraft hobby. Unlike the LiIon cells, the power-density of LiPo cells can be extremely high. Many in the hobby industry claim continuous discharge rates of 70C with bursts of 140C. This equates to draining the battery in less than one minute. Unfortunately, there is an inverse relationship between energy-density and power-density in these cells. In order to achieve the high discharge rates, the cells need more copper to carry the current, and the cells must be larger and heavier.
+
+Looking at manufacturer specification for the LiIon cells, energy densities in excess of 200 Wh/kg are frequently listed, whereas for the lower discharge-rate LiPos the highest is on the order of 190 wh/kg. Samples of both cell types were tested. The LiIon cells had an advertised capacity of 3 Ah, and an energy density on the order of 220 wh/kg. The LiPo cells had an advertised capacity of 2 Ah, and an energy density of just over 190 wh/kg. Experiments were set up to test the cells under typical loads. Twelve LiIon cells were formed into a pack of 4 cells in series (4S) and 3 cells in parallel (3P), to make a 4S3P pack with a nominal voltage of 14.8 V and capacity of 9 Ah. Sixteen LiPo cells were formed into a 4S4P pack with nominal 14.8 V and 8 Ahr capacity.
+
+Due to internal cell resistance, the usable energy in the packs is a function of discharge rate. The LiPo pack was tested at two discharge rates, 0.21C and 2.51C, with voltage and current logged from start to finish. The LiIon pack cannot support the higher discharge rate, but was tested at a lower 0.17C rate. Results of the discharge tests are shown in Figs.~\ref{batt_v_vs_t} and \ref{batt_e_vs_t}, plotting voltage and energy-use as functions of normalized discharge time, respectively. As with most batteries, voltage slowly drops over the discharge cycle, a feature that is convenient for estimating remaining energy in the pack. The voltage also drops as a function of load, which is a result of the internal cell resistance and Ohm's law.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=85mm]{Figs/V_versus_T.eps}
+  \caption{Pack voltage as a function of normalized discharge time.}
+  \label{batt_v_vs_t}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=85mm]{Figs/Energy_v_time.eps}
+  \caption{Energy-out as a function of normalized discharge time.}
+  \label{batt_e_vs_t}
+\end{figure}
+
+The discharge cycles were halted when the pack voltage reached 3.2 V/cell or 12.8 V for the pack. For the LiPo pack this is considered to be the lowest, safe voltage for the cells, The LiIon packs can typically be safely drained to a lower voltage, although is is apparent from Fig.~\ref{batt_v_vs_t} that the voltage has already dropped off the cliff, and there is very little actual energy left in the pack. The measured useful pack energy and energy-density are shown in Table~\ref{batt_performance}.
+\begin{table}
+  \caption{Measured battery performance}
+  \centering
+  \begin{tabular}{ l | r | r | r }
+  Type &C-rate & Energy (Wh) & Energy Density (Wh/kg) \\
+  \hline
+  LiPo & 0.209 & 115.5 & 177.7 \\
+  LiPo & 2.502 & 105.8 & 162.8 \\
+  LiIon & 0.171 & 107.9 & 167.3 \\
+  \end{tabular}
+  \label{batt_performance}
+\end{table}
+
+The sensitivity to drain rate is clear. Also clear is the fact that advertised energy and energy-density might not be achievable in a practical application. While the LiIon cells would appear to be far superior based on manufacturers' specifications, experiments would tend to suggest that LiPo batteries are superior for this project.
+
+Battery capacity is driven by the need to survive the night with no photovoltaic energy input. At a minimum the battery must power the avionics and payload components that are in use. Thermal activity will diminish at night, although the same algorithm that exploits thermal lift during the day may be used to minimize sink during the night. If there are pockets of air that sink, there must be pockets of air that rise. The lift may be weak, but better than no lift at all. When the lift is insufficient to maintain altitude, the motor must be used to regain it.
+
+Use of the motor for propulsion introduces additional efficiency considerations. The motor is a sensorless brushless motor with electronic speed control. Motor efficiencies are quite high at nominal power settings. All brushless motors have internal resistance and a parameter called $I_0$ that represents the no-load current at a specific voltage. These two terms dictate the efficiency of the motor over its useful power spectrum. With no load they will draw power from the system that is roughly $I_0*V$ and at an efficiency of zero. As the mechanical load is increased, the efficiency rapidly increases to some peak value. While the motor might have a nominal efficiency of better than 90 percent at its rated power, at a much lower power the efficiency can be very low, perhaps below 50 percent. This becomes critical when the motor is used for propulsion. The current airframe at nominal weight requires on the order of 40 $W$ to sustain cruise flight, but the motor is rated for up to 1000 $W$. At full throttle with the included gear drive and propeller it draws on the order of 400 $W$ with an estimated total efficiency in excess of 85 percent, but at 40 $W$ the system efficiency is down around 10 percent. This is a clear indication that when the motor is used, it should be used at a high power setting, not to sustain cruise flight, but to gain altitude, using elevation as energy storage. The intermittent high power draw from the propulsion will reduce the battery efficiency somewhat, but this is much more subtle than the motor efficiency curve.
+
+\subsection{Potential Energy Management}
+
+Control stuff goes here
+
+\section{HIL and SIL setup}
+
+Condor and Condor API
+
+\section{Preliminary Flight Test Results}
+
+System identification => sink polar=> ID of a thermal=> Thermaling guidance=> Thermal mapping=> Navigation for the purpose of mission goals.
+
+\section{Future steps}
+
+Our plans for the November-February time frame.
+
+\section{CONCLUSIONS}
+
+A conclusion  might elaborate on the importance of the work or suggest applications and extensions.
+
+\addtolength{\textheight}{-12cm}   % This command serves to balance the column lengths
+                                  % on the last page of the document manually. It shortens
+                                  % the textheight of the last page by a suitable amount.
+                                  % This command does not take effect until the next page
+                                  % so it should come on the page before the last. Make
+                                  % sure that you do not shorten the textheight too much.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{APPENDIX}
+
+Appendixes should appear before the acknowledgment.
+
+\section*{ACKNOWLEDGMENT}
+
+The preferred spelling of the word “acknowledgment” in America is without an “e” after the “g”. Avoid the stilted expression, “One of us (R. B. G.) thanks . . .”  Instead, try “R. B. G. thanks”. Put sponsor acknowledgments in the unnumbered footnote on the first page.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+References are important to the reader; therefore, each citation must be complete and correct. If at all possible, references should be commonly available publications.
+
+
+
+\begin{thebibliography}{99}
+
+\bibitem{c1} G. O. Young, “Synthetic structure of industrial plastics (Book style with paper title and editor),” 	in Plastics, 2nd ed. vol. 3, J. Peters, Ed.  New York: McGraw-Hill, 1964, pp. 15–64.
+\bibitem{c2} W.-K. Chen, Linear Networks and Systems (Book style).	Belmont, CA: Wadsworth, 1993, pp. 123–135.
+\bibitem{c3} H. Poor, An Introduction to Signal Detection and Estimation.   New York: Springer-Verlag, 1985, ch. 4.
+\bibitem{c4} B. Smith, “An approach to graphs of linear forms (Unpublished work style),” unpublished.
+\bibitem{c5} E. H. Miller, “A note on reflector arrays (Periodical style—Accepted for publication),” IEEE Trans. Antennas Propagat., to be publised.
+\bibitem{c6} J. Wang, “Fundamentals of erbium-doped fiber amplifiers arrays (Periodical style—Submitted for publication),” IEEE J. Quantum Electron., submitted for publication.
+\bibitem{c7} C. J. Kaufman, Rocky Mountain Research Lab., Boulder, CO, private communication, May 1995.
+\bibitem{c8} Y. Yorozu, M. Hirano, K. Oka, and Y. Tagawa, “Electron spectroscopy studies on magneto-optical media and plastic substrate interfaces(Translation Journals style),” IEEE Transl. J. Magn.Jpn., vol. 2, Aug. 1987, pp. 740–741 [Dig. 9th Annu. Conf. Magnetics Japan, 1982, p. 301].
+\bibitem{c9} M. Young, The Techincal Writers Handbook.  Mill Valley, CA: University Science, 1989.
+\bibitem{c10} J. U. Duncombe, “Infrared navigation—Part I: An assessment of feasibility (Periodical style),” IEEE Trans. Electron Devices, vol. ED-11, pp. 34–39, Jan. 1959.
+\bibitem{c11} S. Chen, B. Mulgrew, and P. M. Grant, “A clustering technique for digital communications channel equalization using radial basis function networks,” IEEE Trans. Neural Networks, vol. 4, pp. 570–578, July 1993.
+\bibitem{c12} R. W. Lucky, “Automatic equalization for digital communication,” Bell Syst. Tech. J., vol. 44, no. 4, pp. 547–588, Apr. 1965.
+\bibitem{c13} S. P. Bingulac, “On the compatibility of adaptive controllers (Published Conference Proceedings style),” in Proc. 4th Annu. Allerton Conf. Circuits and Systems Theory, New York, 1994, pp. 8–16.
+\bibitem{c14} G. R. Faulhaber, “Design of service systems with priority reservation,” in Conf. Rec. 1995 IEEE Int. Conf. Communications, pp. 3–8.
+\bibitem{c15} W. D. Doyle, “Magnetization reversal in films with biaxial anisotropy,” in 1987 Proc. INTERMAG Conf., pp. 2.2-1–2.2-6.
+\bibitem{c16} G. W. Juette and L. E. Zeffanella, “Radio noise currents n short sections on bundle conductors (Presented Conference Paper style),” presented at the IEEE Summer power Meeting, Dallas, TX, June 22–27, 1990, Paper 90 SM 690-0 PWRS.
+\bibitem{c17} J. G. Kreifeldt, “An analysis of surface-detected EMG as an amplitude-modulated noise,” presented at the 1989 Int. Conf. Medicine and Biological Engineering, Chicago, IL.
+\bibitem{c18} J. Williams, “Narrow-band analyzer (Thesis or Dissertation style),” Ph.D. dissertation, Dept. Elect. Eng., Harvard Univ., Cambridge, MA, 1993.
+\bibitem{c19} N. Kawasaki, “Parametric study of thermal and chemical nonequilibrium nozzle flow,” M.S. thesis, Dept. Electron. Eng., Osaka Univ., Osaka, Japan, 1993.
+\bibitem{c20} J. P. Wilkinson, “Nonlinear resonant circuit devices (Patent style),” U.S. Patent 3 624 12, July 16, 1990.
+
+
+
+
+
+
+\end{thebibliography}
+
+
+
+
+\end{document}
